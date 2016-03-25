@@ -1,4 +1,4 @@
-            /*global gbbase*//*global gbkey*//*global dbkey*//*global amzLogo*//*global itunesLogo*//*global vuduLogo*//*global gpLogo*//*global mgoLogo*/
+            /*global gbbase*//*global gbkey*//*global dbkey*//*global amzLogo*//*global itunesLogo*//*global vuduLogo*//*global gpLogo*//*global mgoLogo*//*global netflixLogo*/
             /*global huluLogo*//*global flixsterLogo*//*global youtubeLogo*//*global cinemaNowLogo*//*global sonyLogo*//*global crackleLogo*//*global xboxLogo*/
     var movieImageUrl = "";
     var movieName = "";
@@ -8,9 +8,16 @@
     var paidTable = document.createElement('table');
     var freeSourceList = [];
     var paidSourceList = [];
+    var num = Math.round(100000 * Math.random());
+
     //$( "#movieInput" ).autocomplete({source: availableTags});
     
-    
+    var callbackMethod = "allflicks_" + num;
+    window[callbackMethod] = function (dataSrc) {
+            //window.alert("sdfsdf");
+        };
+
+
     var movieId;
     document.addEventListener('DOMContentLoaded', function (event) {
            //add listeners when content is loaded
@@ -29,7 +36,12 @@
             
                     for(var title in response[cat][movie]){
                         if(title == "title"){
-                            availableTags.push(response[cat][movie][title]);
+                            /*
+                            var listItem = document.createElement('li');         
+                            var textnode = document.createTextNode("<a href=\"index.html\">"+response[cat][movie][title]+"<br /><span>"+response[cat][movie][title]+"</span></a>");        
+                            listItem.appendChild(textnode);                              // Append the text to <li>
+                            document.getElementById("titleAuto").appendChild(listItem);  */ 
+                            availableTags.push();
                             $( "#movieInput" ).autocomplete({source: availableTags});
                         }
                     }
@@ -40,7 +52,6 @@
     }
     function getMovieInfo(){
         resetAll();
-    
         var url = gbbase + gbkey + "/movie/" + getGuideboxId();
         var response = getRequest(url);
         movieImageUrl = response["poster_120x171"];
@@ -79,15 +90,19 @@
             //console.log(paidSourceList[src]);
             addToSourceList(paidSourceList[src],"Paid")  
         };
+        var result = nfSearch(document.getElementById('movieInput').value);
+        if(result.includes("yes") == true){
+            addToSourceList("netflix", "Free");
+        }
         if(freeTable.childElementCount > 0){
             var tableHead = document.createElement('p');
-            tableHead.innerHTML = "<h3>Free Streaming Sources</h3>";
+            tableHead.innerHTML = "<h3>Subscription Streaming Sources</h3>";
             document.getElementById('sources').appendChild(tableHead);
             document.getElementById('sources').appendChild(freeTable);            
         }
         if(paidTable.childElementCount > 0){
             var tableHead = document.createElement('p');
-            tableHead.innerHTML = "<h3>Paid Streaming Sources</h3>"; 
+            tableHead.innerHTML = "<h3>Rental Streaming Sources</h3>"; 
             document.getElementById('sources').appendChild(tableHead);          
             document.getElementById('sources').appendChild(paidTable);            
         }
@@ -191,27 +206,39 @@
                 logo = mgoLogo;
                 source = "M GO";
                 break;
+            case "netflix":
+                logo = netflixLogo;
+                source = "Netflix";
+                break;
         }
         
         if(cost == "Free"){
             freeTable.classList.add("table");
             var row = freeTable.insertRow(0);
             var logoCell = row.insertCell(0);
+
             var sourceName = row.insertCell(1);
             var freeOrPaid = row.insertCell(2);
+            logoCell.style.width = "20%";
+            sourceName.style.width = "50%";
+            freeOrPaid.style.width = "30%";
             logoCell.innerHTML = "<td><img  style=\"width:32px;height:32px;\" src=\"" + logo + "\"></img></td>";
-            sourceName.innerHTML = "<td width=\"200\"><p>" + source + "</p></td?";
-            freeOrPaid.innerHTML = "<td width=\"200\"><p>" + cost + "</p></td>"; 
+            sourceName.innerHTML = "<td class=\"sourceClass\"><p><b>" + source + "</b></p></td>";
+            freeOrPaid.innerHTML = "<td class=\"sourceClass\"><p><b>" + cost + "</b></p></td>"; 
         }
         else if(cost == "Paid"){
             paidTable.classList.add("table");
+            
             var row = paidTable.insertRow(0);
             var logoCell = row.insertCell(0);
             var sourceName = row.insertCell(1);
-            var freeOrPaid = row.insertCell(2);;
-            logoCell.innerHTML = "<td><img  style=\"width:32px;height:32px;\" src=\"" + logo + "\"></img></td>";
-            sourceName.innerHTML = "<td width=\"200\"><p>" + source + "</p></td?";
-            freeOrPaid.innerHTML = "<td width=\"200\"><p>" + cost + "</p></td>";            
+            var freeOrPaid = row.insertCell(2);
+            logoCell.style.width = "20%";
+            sourceName.style.width = "50%";
+            freeOrPaid.style.width = "30%";
+            logoCell.innerHTML = "<td class=\"sourceClass\"><img  style=\"width:32px;height:32px;\" src=\"" + logo + "\"></img></td>";
+            sourceName.innerHTML = "<td class=\"sourceClass\"><p><b>" + source + "</b></p></td>";
+            freeOrPaid.innerHTML = "<td class=\"sourceClass\"><p><b>" + cost + "</b></p></td>";            
         }
     }
 
@@ -223,6 +250,27 @@
         var response = JSON.parse(request.responseText);
         return response;   
     };
+    
+    function getRawRequest(urlToUse){
+        event.preventDefault();
+        var request = new XMLHttpRequest();
+        request.open('GET', urlToUse,false);
+        request.send(null);
+        return request.responseText;
+    }
+    
+    function nfSearch(title){
+
+        var url = "https://streamr-cboseak1.c9users.io/search/gl?title=" +"{"+ title + "}";
+        event.preventDefault();
+        var request = new XMLHttpRequest();
+        request.open('GET', url,false);
+        
+        request.send(null);
+        //window.alert(request.responseText);
+        return request.responseText;
+       
+    }
     
     function resetAll(){
         clearDomObject("sources");

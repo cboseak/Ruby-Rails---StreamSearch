@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
               <!--LOGO-->
-              <div class="span3"><a class="brand" href="#"><%= image_tag("logos.png" )%> </a></div>
+              <div class="span3"><%= image_tag("logos.png" )%> </div>
               <!-- /LOGO -->
 
             <!-- MAIN NAVIGATION -->  
@@ -44,27 +44,22 @@
     
     
     <div class="container top-buffer">
-        <div class="row">
-            <div class="col-med-8 col-md-offset-3" >
-                <form class="form-inline" name="movieForm" role="form" method="GET">
+                <form id="searchFormMovie" class="form-inline">
                     <div class="form-group ui-widget">
                         <label for="searchTerm">Search: </label>
-                        <input type="text" style="width: 450px" class="form-control" id="movieInput" >
+                        <input type="text" style="width: 50%" class="form-control" id="movieInput" >
                         <button  id="sub" class="btn btn-default">Submit</button>
                     </div>
-                        
                 </form>
-            </div>
-        </div>
-        <div class="col-med-10" id="movieInfo">
+        <div class="col-med-12" id="movieInfo">
 
         </div>
         <div class="row top-buffer">
-            <div class="col-med-10" id="sources">   
+            <div class="col-med-10 col-med-offset-1" id="sources">   
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="res">
         
     </div>
 

@@ -22,5 +22,11 @@ module Workspace
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.assets.compile = true
+    config.assets.precompile = ['*.min.js','*.js','jquery-ui.min.js', '*.png','bootstrap.min.css', '*.css.erb','tri/hill.png','tri/house.png','tri/sun.png',
+    'tri/birds1.png','tri/birds2.png','animate.min.css','application.scss','bootstrap-responsive.css','custom.css','font-awesome',
+    'font-awesome.css','jquery-ui.css','jquery-ui.structure.css','jquery-ui.theme.css','lightbox.css','main.css','prettyPhoto.css',
+    'responsive','style.css','msearch.js','common.js','logo.png','tri/mov.png','tri/hulu.png','tri/nf.png','tri/it.png','tri/nf2.png','searchbar.css']
+    #config.assets.precompile = ['*.min.js','*.js','*.png','tri/*.png']
   end
 end

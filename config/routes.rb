@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   resources :results
   root "search#index"
   get 'search/index'
-  
+  get 'search/gl'
+  get 'search/gljson'
+  get 'search/search'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

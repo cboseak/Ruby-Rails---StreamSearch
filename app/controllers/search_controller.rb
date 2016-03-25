@@ -1,20 +1,85 @@
-class SearchController < ApplicationController
-  helper_method :getSignatureKey, :generateMovieSearchUrl
+class SearchController < ApplicationController 
   
   def index
+    render layout: "blank"
+  end
+  
+  def search
+    render layout: "triangle"
+  end
     
-  end
-  def getSignatureKey (key, dateStamp, regionName, serviceName)
-    kDate    = OpenSSL::HMAC.digest('sha256', "AWS4" + key, dateStamp)
-    kRegion  = OpenSSL::HMAC.digest('sha256', kDate, regionName)
-    kService = OpenSSL::HMAC.digest('sha256', kRegion, serviceName)
-    kSigning = OpenSSL::HMAC.digest('sha256', kService, "aws4_request")
+  def gl
+    #render layout: "blank"
+    if params.has_key?(:url)
+      @url = params[:url]  
+    else
+      @url = "usa.netflixable.com/2016/01/complete-alphabetical-list-sat-jan-23.html"
+    end
+    if params.has_key?(:title)
+      @title = params[:title]  
+    else
+      @title = ""
+    end
+    
+    require 'net/http'
 
-    kSigning
-  end    
-  def generateMovieSearchUrl()
-    base        =   "\"http://api-public.guidebox.com/v1.43/US/rKiM2zR4cTaMZM3VLtkqjaG7NmQssvh7/search/movie/title/\""
+    url = URI.parse('http://' + @url)
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    
+    @condensed = res.body.scan(/(title\?title=)(.*?)(">imdb<\/a>)/)
+    @html = res.body
+    @text = @condensed.join(",")
+    @text.sub!("title?title=,","{")
+    @text.gsub!(",\">imdb</a>,title?title=,","},{")
+    @text.gsub!(",\">imdb</a>","}")
 
-    base
+    
+    
+    if @text.upcase.include? @title.upcase 
+      @result = "yes"
+    else
+      @result = "no"
+    end
+
   end
+  def gljson
+    require "json"
+    if params.has_key?(:url)
+      @url = params[:url]  
+    else
+      @url = "usa.netflixable.com/2016/01/complete-alphabetical-list-sat-jan-23.html"
+    end
+    if params.has_key?(:title)
+      @title = params[:title]  
+    else
+      @title = ""
+    end
+    
+    require 'net/http'
+
+    url = URI.parse('http://' + @url)
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+      http.request(req)
+    }
+    
+    @condensed = res.body.scan(/(title\?title=)(.*?)(">imdb<\/a>)/)
+    @html = res.body
+    @text = @condensed.join(";")
+    @text.sub!("title?title=;","")
+    @text.gsub!(";\">imdb</a>;title?title=;",";")
+    @text.gsub!(";\">imdb</a>","")
+    @titles = @text.split(";")
+
+    if @text.upcase.include? @title.upcase 
+     @result = "yes"
+    else
+      @result = "no"
+    end
+
+  end
+  
 end

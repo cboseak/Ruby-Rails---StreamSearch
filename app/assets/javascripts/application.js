@@ -10,11 +10,11 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jq
 //= require jquery-ui
+//= require jquery
+//= require jq
 //= require common
 //= require msearch
 //= require bootstrap-sprockets
 //= require turbolinks
-//= require_tree .
 
