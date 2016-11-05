@@ -1,3 +1,8 @@
+.searchMain{
+ 
+  background-image: url(../images/back.gif);   
+}
+
 .top-buffer {
     margin-top:20px; 
 }
@@ -6,6 +11,10 @@
 }
 #collapse-row{
     width : 50%;
+}
+
+#siteLogo{
+    height: 100%;
 }
 
 .sourceClass{

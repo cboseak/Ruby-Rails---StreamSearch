@@ -553,7 +553,7 @@ ul.sub-menu {
   right: 400px;
   bottom: 50px;
    z-index: -5; 
-       opacity: 0.4;
+       opacity: 0.1;
 }
 
 .animate-in .slider-hill2 {
@@ -567,10 +567,10 @@ ul.sub-menu {
 
 #home-slider .slider-hill {
   position: absolute;
-  right: 0;
+  right: 200px;
   bottom: 0;
    z-index: -5; 
-       opacity: 0.4;
+       opacity: 0.1;
 }
 
 .animate-in .slider-hill {
@@ -580,28 +580,36 @@ ul.sub-menu {
 
 #home-slider .slider-house {
   position: absolute;
-  right: 110px;
+  right: 200px;
   bottom: -30px;
    z-index: -5; 
-       opacity: 0.4;
+       opacity: 0.1;
 }
 
 .animate-in .slider-house {
   -webkit-animation: bounceInDown 500ms ease-in-out 800ms both;
   animation: bounceInDown 500ms ease-in-out 800ms both;
 }
-
-#home-slider .slider-sun {
-  position: absolute;
-  right: 365px;
-  bottom: 100px;
+.animate-in .see-through {
+  -webkit-animation: bounceInRight 900ms ease-in-out 800ms both;
+  animation: bounceInRight 2500ms ease-in-out 800ms both;
+}
+.see-through{
+       opacity: 0.1; 
+       position: absolute;
+  right: 600px;
+  bottom: 50px;
    z-index: -5; 
 }
+.slider-sun {
+   z-index: -5; 
+}
+
+
 
 .animate-in .slider-sun {
   -webkit-animation: scaleIn 500ms ease-in-out 1200ms both;
   animation: scaleIn 500ms ease-in-out 1200ms both;
-       opacity: 0.4;
 }
 
 
@@ -612,14 +620,14 @@ ul.sub-menu {
   right: 40px;
   bottom: 150px;
    z-index: -5; 
-       opacity: 0.4;
+       opacity: 0.1;
 }
 
 .animate-in .slider-birds2 {
   -webkit-animation: fadeInRight 500ms ease-in-out 1200ms both;
   animation: fadeInRight 500ms ease-in-out 1200ms both;
   
-       opacity: 0.4;
+       opacity: 0.1;
 }
 
 

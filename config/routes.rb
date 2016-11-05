@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'search/gl'
   get 'search/gljson'
   get 'search/search'
+  get 'search/test'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

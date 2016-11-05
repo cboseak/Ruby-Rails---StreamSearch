@@ -25,7 +25,7 @@
 }
 
 .cf{
-    zoom:1.5;
+    zoom:1;
      z-index: -50; 
 } 
 .form-wrapper {
@@ -126,34 +126,38 @@
     border: 0;
     padding: 0;}
 </style>
-    <section style="height:85vh;" id="home-slider">
+    <div class="container">
+        <div id="topArea">
+            
+        </div>
+        <div id="movieInfo">
+
+        </div>
+        <div id="sources">
+            
+        </div>
+    </div>
+
+    <section  id="home-slider">
         <div  class="container">
             <div class="row">
-                <div  class="main-slider">
-                    <div  class="slide-text">
-                    <!--<form id="searchFormMovie" class="form-inline">
-                        <div class="form-group ui-widget">
-                            <label for="searchTerm">Search: </label>
-                            <input type="text" style="width: 50%" class="form-control" id="movieInput" >
-                            <button  id="sub" class="btn btn-default">Submit</button>
-                        </div>
-                    </form>
-                    <form id="searchFormMovie" class="search"  >
-                    <input type="text" name="q" id="movieInput" placeholder="Search..." />
-                    <ul class="results" id="titleAuto">
+                <div  id="firstLoad" class="main-slider">
                         
-                    </ul>-->
-                    
-                    <form class="form-wrapper cf">
-        <input style="height:40px" id="movieInput" type="text" placeholder="Search here..." required>
-        <button id="sub">Search</button>
-    </form>   
+
+                    <%= image_tag("tri/mov.png", :class => "slider-hill") %> 
+                    <%= image_tag("tri/hulu.png", :class => "slider-house") %> 
+                    <img class="see-through" src="../images/nf.png">
+            
+                    <div  class="slide-text">
+                        
+                        <form id="searchBar" class="form-wrapper cf">
+                            <input style="height:40px" id="movieInput" type="text" placeholder="Search here..." required>
+                            <button id="sub">Search</button>
+                        </form>   
+                        
                     </div>
-                      <%= image_tag("tri/mov.png", :class => "slider-hill") %> 
-                      <%= image_tag("tri/hulu.png", :class => "slider-house") %> 
-                      <img class="slider-hill" src="../images/nf.png">
+
                 </div>
             </div>
-        </div>
         <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
     </section>
